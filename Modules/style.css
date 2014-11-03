@@ -1,0 +1,123 @@
+body {
+	margin: 0px;
+	padding: 47px 0 40px;
+}
+header {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	font-family: sans-serif; 
+	background-color: #000000;
+	padding: 5px 0px;
+	color: #ffffff;
+	text-align: center;
+}
+footer {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	font-family: sans-serif; 
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+	padding: 10px;
+}
+h1 {
+	color: #ffffff;
+	clear: both;
+	font-family: sans-serif;
+	text-align: center;
+	margin: 0;
+}
+header h1 {
+	display: inline-block;
+}
+h2 {
+	background: rgba(0, 0, 0, 0.71);
+	color: #ffffff;
+	clear: both;
+	font-family: sans-serif;
+	text-align: center;
+	margin: 0;
+	margin-bottom: 15px;
+	padding: 5px 0;
+}
+table {
+	padding-left: 50px;
+}
+
+#checkbox {
+	display: inline-block;
+	position: relative;
+	left: 50px;
+	top: 6px;
+	float: left;
+}
+
+#selectChapter {
+	display: inline-block;
+	float: right;
+	position: relative;
+	top: 8px;
+	right: 50px;
+}
+
+#selectChapter select {
+	border: none;
+	border-radius: 0;
+	background: #31A173;
+	color: #FFFFFF;
+	font-size: 15px;
+}
+
+#testTake {
+	border-radius: 0;
+	background: #31A173;
+	color: #FFFFFF;
+	border: none;
+	font-size: 15px;
+	padding: 3px 8px;
+	cursor: pointer;
+}
+
+#testTake:hover {
+	background: #3BC38B;
+}
+
+.examQuestionTable > tbody > tr:last-of-type td:last-of-type {
+	display: none;
+}
+
+.grade {
+	position: fixed;
+	top: 45px;
+	right: -2px;
+	margin-left: -141px;
+	background: #FFFFFF;
+	border: 2px solid #000000;
+	padding: 0 15px 5px;
+	text-align: center;
+	display: none;
+}
+
+.grade .close {
+	position: absolute;
+	top: 0;
+	right: 5px;
+	cursor: pointer;
+}
+
+.grade h3 {
+	font-size: 25px;
+	margin: 15px 0 0px;
+}
+
+.grade p {
+	font-size: 17px;
+	margin: 0;
+}
+
+.message {
+	font-size: 35px;
+	margin: 15px 0;
+}
