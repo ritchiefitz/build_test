@@ -38,6 +38,12 @@ $( document ).ready(function() {
 
 		$("[name*=mySelect]").append("<option value=" + id + ">" + name + "</option>");
 	});
+
+	$(".chapter-questions").each(function () {
+		$("b", this).html(function (index) {
+			return (index + 1) + ".&nbsp;";
+		});
+	});
 });
 
 function groupRadioButtons() {
