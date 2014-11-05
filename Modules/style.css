@@ -48,17 +48,15 @@ table {
 
 #checkbox {
 	display: inline-block;
-	position: relative;
+	position: absolute;
 	left: 50px;
-	top: 6px;
-	float: left;
+	top: 11px;
 }
 
 #selectChapter {
 	display: inline-block;
-	float: right;
-	position: relative;
-	top: 8px;
+	position: absolute;
+	top: 12px;
 	right: 50px;
 }
 
