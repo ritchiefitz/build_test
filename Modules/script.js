@@ -75,7 +75,7 @@ function stickyChapters() {
 	var checkSticky = function() {
 
 		// get current scroll position.
-    	var currentScroll = $(window).scrollTop() + 47;
+    	var currentScroll = $(window).scrollTop() + 85;
 
     	// check all chapters to see which one should be sticky.
     	for (var i = allChapters.length - 1; i >= 0; i--) {
