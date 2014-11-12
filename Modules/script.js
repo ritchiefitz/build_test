@@ -50,41 +50,48 @@ $( document ).ready(function() {
 });
 
 function stickyChapters() {
+	// Save information for each chapter heading into a map into array.
 	var allChapters = []
 	$('[id*=chapt]').each(function () {
 		var eachChapter = {}
-		eachChapter["id"] = $(this).attr("id");
 		eachChapter["scroll"] = $(this).offset().top;
-		eachChapter["change"] = false;
 		eachChapter["element"] = $(this);
 		
 		allChapters.push(eachChapter);
 	});
 
+	// Start the first chapter as sticky.
 	allChapters[0]["element"].addClass("sticky");
 
+	// Use this to execute checkSticky smoothly.
+	// Not choppy.
 	var timer;
     $(window).bind('scroll',function () {
         clearTimeout(timer);
         timer = setTimeout(checkSticky, 10);
     });
 
-	var checkSticky = function() {                  // assign scroll event listener
+    // Make the highest indexed chapter heading sticky.
+	var checkSticky = function() {
 
-    	var currentScroll = $(window).scrollTop(); // get current position
+		// get current scroll position.
+    	var currentScroll = $(window).scrollTop();
 
+    	// check all chapters to see which one should be sticky.
     	for (var i = allChapters.length - 1; i >= 0; i--) {
     		if (allChapters[i].scroll < currentScroll) {
+    			// make header sticky.
 				allChapters[i]["element"].addClass("sticky");
 
-				for (var j = 0; j < i; j++) {
-					allChapters[j]["element"].removeClass("sticky");
+				// remove the sticky class from the rest.
+				for (var j = 0; j < allChapters.length; j++) {
+					if (j != i) {
+						allChapters[j]["element"].removeClass("sticky");
+					}
 				}
 
-				for (var k = i+1; k < allChapters.length; k++) {
-					allChapters[k]["element"].removeClass("sticky");
-				}
-
+				// This makes sure we break on the highest scolled chapter.
+				// Also makes the program a little faster :)
 				break;
 			}
     	}
