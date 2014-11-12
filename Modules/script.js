@@ -12,6 +12,7 @@ $( document ).ready(function() {
 			$(".question-image").attr("src", "../Images/check.png");
 			$(".examAnswerTable tr img[src*=delete]").remove();
 			$(".radio").removeAttr("disabled").removeAttr("checked");
+			shuffleQuestions();
 		}
 		else {
 			$(this).attr("value", "Take Test");
@@ -44,7 +45,61 @@ $( document ).ready(function() {
 			return (index + 1) + ".&nbsp;";
 		});
 	});
+
+	// var allChapters = []
+	// $('[id*=chapt]').each(function () {
+	// 	var eachChapter = {}
+	// 	eachChapter["id"] = $(this).attr("id");
+	// 	eachChapter["scroll"] = $(this).offset.top;
+		
+	// 	allChapters.push(eachChapter);
+	// });
+
+	// $(window).scroll(function() {                  // assign scroll event listener
+
+ //    	var currentScroll = $(window).scrollTop(); // get current position
+ //    	var divTop = $(this).offset().top;
+
+	//     if (currentScroll >= divTop) {           // apply position: fixed if you
+	//         $(this).css({                      // scroll to that element or below it
+	//             position: 'fixed',
+	//             top: '47px',
+	//             left: '0',
+	//             width: "100%"
+	//         });
+	//     } else {                                   // apply position: static
+	//         $(this).css({                      // if you scroll above it
+	//             position: 'static',
+	//             top: '0'
+	//         });
+	//     }
+
+	// });
 });
+
+function shuffleQuestions() {
+	$(".examAnswerTable").each(function () {
+		var questionArray = [];
+		var $trs = $(this).find("tbody > tr");
+		$trs.each(function () {
+			var questionInfo = {};
+
+			// assign random value that won't equal another number.
+			questionInfo["number"] = Math.floor(Math.random() * 100000) + 1;
+			questionInfo["element"] = this;         // save table row.
+			questionArray.push(questionInfo);
+
+			// remove element from DOM to be readded later.
+			this.remove();
+		});
+
+		questionArray.sort(function (a,b) { return a.number > b.number});
+
+		for (i in questionArray) {
+			$(this).find("tbody").append(questionArray[i].element);
+		}
+	});
+}
 
 function groupRadioButtons() {
 	var i = 1;
