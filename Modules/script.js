@@ -46,36 +46,51 @@ $( document ).ready(function() {
 		});
 	});
 
-	// var allChapters = []
-	// $('[id*=chapt]').each(function () {
-	// 	var eachChapter = {}
-	// 	eachChapter["id"] = $(this).attr("id");
-	// 	eachChapter["scroll"] = $(this).offset.top;
-		
-	// 	allChapters.push(eachChapter);
-	// });
-
-	// $(window).scroll(function() {                  // assign scroll event listener
-
- //    	var currentScroll = $(window).scrollTop(); // get current position
- //    	var divTop = $(this).offset().top;
-
-	//     if (currentScroll >= divTop) {           // apply position: fixed if you
-	//         $(this).css({                      // scroll to that element or below it
-	//             position: 'fixed',
-	//             top: '47px',
-	//             left: '0',
-	//             width: "100%"
-	//         });
-	//     } else {                                   // apply position: static
-	//         $(this).css({                      // if you scroll above it
-	//             position: 'static',
-	//             top: '0'
-	//         });
-	//     }
-
-	// });
+	stickyChapters();
 });
+
+function stickyChapters() {
+	var allChapters = []
+	$('[id*=chapt]').each(function () {
+		var eachChapter = {}
+		eachChapter["id"] = $(this).attr("id");
+		eachChapter["scroll"] = $(this).offset().top;
+		eachChapter["change"] = false;
+		eachChapter["element"] = $(this);
+		
+		allChapters.push(eachChapter);
+	});
+
+	allChapters[0]["element"].addClass("sticky");
+
+	var timer;
+    $(window).bind('scroll',function () {
+        clearTimeout(timer);
+        timer = setTimeout(checkSticky, 10);
+    });
+
+	var checkSticky = function() {                  // assign scroll event listener
+
+    	var currentScroll = $(window).scrollTop(); // get current position
+
+    	for (var i = allChapters.length - 1; i >= 0; i--) {
+    		if (allChapters[i].scroll < currentScroll) {
+				allChapters[i]["element"].addClass("sticky");
+
+				for (var j = 0; j < i; j++) {
+					allChapters[j]["element"].removeClass("sticky");
+				}
+
+				for (var k = i+1; k < allChapters.length; k++) {
+					allChapters[k]["element"].removeClass("sticky");
+				}
+
+				break;
+			}
+    	}
+
+	};
+}
 
 function shuffleQuestions() {
 	$(".examAnswerTable").each(function () {

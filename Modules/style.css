@@ -1,6 +1,6 @@
 body {
 	margin: 0px;
-	padding: 47px 0 40px;
+	padding: 100px 0 40px;
 }
 header {
 	position: fixed;
@@ -118,4 +118,11 @@ table {
 .message {
 	font-size: 35px;
 	margin: 15px 0;
+}
+
+.sticky {
+    position: fixed;
+    top: 47px;
+    left: 0;
+    width: 100%;
 }
