@@ -4,7 +4,6 @@ $( document ).ready(function() {
 
 	$("#testTake").click(function() {
 		var value = $(this).attr("value");
-		console.log(value);
 
 		if (value == 'Take Test'){
 			$(this).attr("value", "Grade");
@@ -17,6 +16,7 @@ $( document ).ready(function() {
 		else {
 			$(this).attr("value", "Take Test");
 			checkAnswers();
+			scrollErrors();
 			$("tr img").css("display", "inline-block");
 			$(".radio").attr("disabled", "disabled");
 		}
@@ -33,9 +33,7 @@ $( document ).ready(function() {
 
 	$("[id*=chapt]").each(function () {
 		var id = "#" + $(this).attr("id");
-		console.log(id);
 		var name = $(this).text();
-		console.log(name);
 
 		$("[name*=mySelect]").append("<option value=" + id + ">" + name + "</option>");
 	});
@@ -99,6 +97,33 @@ function stickyChapters() {
 	};
 }
 
+// show red error line on right like google find.
+function scrollErrors() {
+	var errors = []
+	$(".examQuestionTable > tbody > tr:first-child > td:first-child img[src*=delete]").each(function (){
+		error = {};
+		error["scroll"] = $(this).closest(".examQuestionTable").offset().top;
+		error["element"] = $(this).closest(".examQuestionTable");
+
+		errors.push(error);
+		// console.log($(this));
+		console.log(error["scroll"]);
+	});
+
+	var windowHeight = $(window).height();   // returns height of browser viewport
+
+	var documentHeight = $(document).height(); // returns height of HTML document
+
+	for (i in errors) {
+		var heightPer = errors[i].scroll / documentHeight;
+		$("body").append("<div class='error" + i + "'></div>");
+		$(".error"+ i).css("top", (heightPer * windowHeight) + "px");
+	}
+
+	console.log(windowHeight);
+	console.log(documentHeight);
+}
+
 function shuffleQuestions() {
 	$(".examAnswerTable").each(function () {
 		var questionArray = [];
@@ -149,9 +174,6 @@ function checkAnswers() {
 	$(".correct").text(correct);
 	$(".total").text(total);
 	$(".answer").text(((correct/total) * 100).toFixed(0));
-
-	console.log(correct);
-	console.log(correct/total);
 }
 
 function gotoPage(){

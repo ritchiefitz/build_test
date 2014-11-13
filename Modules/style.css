@@ -88,8 +88,8 @@ table {
 
 .grade {
 	position: fixed;
-	top: 45px;
-	right: -2px;
+	top: 83px;
+	right: 20px;
 	margin-left: -141px;
 	background: #FFFFFF;
 	border: 2px solid #000000;
@@ -125,4 +125,13 @@ table {
     top: 47px;
     left: 0;
     width: 100%;
+}
+
+div[class*="error"] {
+	position: fixed;
+	right: 0;
+	background: #D21010;
+	width: 14px;
+	height: 2px;
+	border: 1px solid #E4E4E4
 }
