@@ -38,14 +38,17 @@ $( document ).ready(function() {
 		$("[name*=mySelect]").append("<option value=" + id + ">" + name + "</option>");
 	});
 
+	numberQuestions();
+	stickyChapters();
+});
+
+function numberQuestions() {
 	$(".chapter-questions").each(function () {
 		$("b", this).html(function (index) {
 			return (index + 1) + ".&nbsp;";
 		});
 	});
-
-	stickyChapters();
-});
+}
 
 function stickyChapters() {
 	// Save information for each chapter heading into a map into array.
@@ -73,7 +76,7 @@ function stickyChapters() {
 	var checkSticky = function() {
 
 		// get current scroll position.
-    	var currentScroll = $(window).scrollTop();
+    	var currentScroll = $(window).scrollTop() + $("header").outerHeight();
 
     	// check all chapters to see which one should be sticky.
     	for (var i = allChapters.length - 1; i >= 0; i--) {
@@ -125,10 +128,12 @@ function scrollErrors() {
 }
 
 function shuffleQuestions() {
-	$(".examAnswerTable").each(function () {
+	// Shuffle Questions
+	$(".chapter-questions").each(function () {
 		var questionArray = [];
-		var $trs = $(this).find("tbody > tr");
-		$trs.each(function () {
+		var $questions = $(this).find(".examQuestionTable");
+
+		$questions.each(function () {
 			var questionInfo = {};
 
 			// assign random value that won't equal another number.
@@ -143,9 +148,34 @@ function shuffleQuestions() {
 		questionArray.sort(function (a,b) { return a.number > b.number});
 
 		for (i in questionArray) {
-			$(this).find("tbody").append(questionArray[i].element);
+			$(this).append(questionArray[i].element);
 		}
 	});
+
+	// Shuffle Answers
+	$(".examAnswerTable").each(function () {
+		var choiceArray = [];
+		var $trs = $(this).find("tbody > tr");
+		$trs.each(function () {
+			var choiceInfo = {};
+
+			// assign random value that won't equal another number.
+			choiceInfo["number"] = Math.floor(Math.random() * 100000) + 1;
+			choiceInfo["element"] = this;         // save table row.
+			choiceArray.push(choiceInfo);
+
+			// remove element from DOM to be readded later.
+			this.remove();
+		});
+
+		choiceArray.sort(function (a,b) { return a.number > b.number});
+
+		for (i in choiceArray) {
+			$(this).find("tbody").append(choiceArray[i].element);
+		}
+	});
+
+	numberQuestions();
 }
 
 function groupRadioButtons() {
